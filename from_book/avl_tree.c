@@ -11,12 +11,12 @@ typedef struct No
 
 No* rotacao_esquerda(No* aux)
 {
-    No* aux_d = aux->dir;
-    No* aux_e = aux->esq;
+    No* aux1 = aux->dir;
+    No* aux2 = aux1->esq;
 
     //***************   
-    aux->dir = aux_e;
-    aux_d->esq = aux;
+    aux->dir = aux2;
+    aux1->esq = aux;
     //***************
 
     //Atualizar a altura
@@ -34,16 +34,16 @@ No* rotacao_esquerda(No* aux)
         aux->alt_d = aux->dir->alt_d + 1;
     }
 
-    if(aux_d->esq->alt_e > aux_d->esq->alt_d)
+    if(aux1->esq->alt_e > aux1->esq->alt_d)
     {
-        aux_d->alt_e = aux_d->esq->alt_e + 1;
+        aux1->alt_e = aux1->esq->alt_e + 1;
     }
     else
     {
-        aux_d->alt_e = aux_d->esq->alt_d + 1;
+        aux1->alt_e = aux1->esq->alt_d + 1;
     }
 
-    return aux_d;
+    return aux1;
 }
 
 No* rotacao_direita(No* aux)
