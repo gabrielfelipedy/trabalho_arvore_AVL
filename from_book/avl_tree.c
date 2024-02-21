@@ -5,7 +5,7 @@
 
 typedef struct No
 {
-    int num; alt_d, alt_e;
+    int num, alt_d, alt_e;
     struct No *dir, *esq;
 } No;
 
@@ -48,12 +48,12 @@ No* rotacao_esquerda(No* aux)
 
 No* rotacao_direita(No* aux)
 {
-    No* aux_d = aux->dir;
-    No* aux_e = aux->esq;
+    No* aux1 = aux->esq;
+    No* aux2 = aux1->dir;
 
     //***************
-    aux->esq = aux_d;
-    aux_e->dir = aux;
+    aux->esq = aux2;
+    aux1->dir = aux;
     //****************
 
     if(aux->esq == NULL)
@@ -69,19 +69,19 @@ No* rotacao_direita(No* aux)
         aux->alt_e = aux->esq->alt_e + 1;
     }
 
-    if(aux_e->dir->alt_d > aux_e->dir->alt_e)
+    if(aux1->dir->alt_d > aux1->dir->alt_e)
     {
-        aux_e->alt_d = aux_e->dir->alt_d + 1;
+        aux1->alt_d = aux1->dir->alt_d + 1;
     }
     else
     {
-        aux_e->alt_d = aux_e->dir->alt_e + 1;
+        aux1->alt_d = aux1->dir->alt_e + 1;
     }
 
-    return aux_e;
+    return aux1;
 }
 
-No* balanceamento(No* aux)
+No* balanceamento(No* aux) //Balanceia somente um nó por vez
 {
     int diferenca = aux->alt_d - aux->alt_e;
 
@@ -99,6 +99,7 @@ No* balanceamento(No* aux)
             aux = rotacao_esquerda(aux);
         }
     }
+
     else if(diferenca == -2)
     {
         int diferenca_filho = aux->esq->alt_d - aux->esq->alt_e;
@@ -137,6 +138,7 @@ No* insert(No* aux, int valor) {
     {
         aux->esq = insert(aux->esq, valor);
 
+        //Atualizar as alturas
         if(aux->esq->alt_d > aux->esq->alt_e)
         {
             aux->alt_e = aux->esq->alt_d + 1;
@@ -154,11 +156,11 @@ No* insert(No* aux, int valor) {
 
         if(aux->dir->alt_d > aux->dir->alt_e)
         {
-            aux->alt_e = aux->dir->alt_d + 1;
+            aux->alt_d = aux->dir->alt_d + 1;
         }
         else
         {
-            aux->alt_e = aux->dir->alt_e + 1;
+            aux->alt_d = aux->dir->alt_e + 1;
         }
 
         aux = balanceamento(aux);
@@ -196,13 +198,13 @@ void mostrar_pre_ordem(No* aux)
     }
 }
 
-void mostrar_ordem(No* aux)
+void mostrar_ordem(No* aux) //traversal in order
 {
     if(aux != NULL)
     {
-        mostrar_pre_ordem(aux->esq);
+        mostrar_ordem(aux->esq);
         printf("%d ", aux->num);
-        mostrar_pre_ordem(aux->dir);
+        mostrar_ordem(aux->dir);
     }
 }
 
@@ -210,8 +212,8 @@ void mostrar_pos_ordem(No* aux)
 {
     if(aux != NULL)
     {
-        mostrar_pre_ordem(aux->esq);
-        mostrar_pre_ordem(aux->dir);
+        mostrar_pos_ordem(aux->esq);
+        mostrar_pos_ordem(aux->dir);
         printf("%d ", aux->num);
     }
 }
@@ -220,31 +222,36 @@ No* remover(No* aux, int num)
 {
     if(aux->num == num)
     {
-        if(aux->esq == NULL && aux->dir == NULL)
+        //Se não tiver filhos, ou seja, é uma folha
+        if(aux->esq == aux->dir)
         {
             free(aux);
             return NULL;
         }
 
-        else if(aux->esq == NULL
-        && aux->dir != NULL)
+        //tem filhos só pra direita
+        else if(aux->esq == NULL)
         {
             No* aux_d = aux->dir;
             free(aux);
             return aux_d;
         }
-        else if(aux->esq != NULL
-        && aux->dir == NULL)
+
+        //tem filhos só pra esquerda
+        else if(aux->dir == NULL)
         {
             No* aux_e = aux->esq;
             free(aux);
             return aux_e;
         }
+
+        //tem filhos pros dois lados
         else
         {
             No* aux_d = aux->dir;
             No* aux2 = aux->dir;
 
+            //procura uma posição vazia
             while(aux2->esq != NULL)
             {
                 aux2 = aux2->esq;
@@ -255,7 +262,7 @@ No* remover(No* aux, int num)
             return aux_d;
         }
     }
-    else if(num < aux->num)
+    else if(aux->num <= num)
     {
         aux->dir = remover(aux->dir, num);
     }
@@ -267,6 +274,7 @@ No* remover(No* aux, int num)
     return aux;
 }
 
+//Atualiza a árvore por completo
 No* atualiza(No* aux)
 {
     if(aux != NULL)
@@ -321,6 +329,13 @@ No* desalocar(No* aux)
 
 int main()
 {
+    No* raiz = NULL;
+
+    raiz = insert(raiz, 6);
+    raiz = insert(raiz, 8);
+    raiz = insert(raiz, 7);
+
+    mostrar_ordem(raiz);
 
     return 0;
 }
