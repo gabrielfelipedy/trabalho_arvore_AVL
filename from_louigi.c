@@ -167,13 +167,7 @@ int main()
 	root = insert(root, 50); 
 	root = insert(root, 25); 
 
-	/* The constructed AVL Tree would be 
-				30 
-			/ \ 
-			20 40 
-			/ \	 \ 
-		10 25 50 
-	*/
+	
 
 	printf("Preorder traversal of the constructed AVL"
 			" tree is \n"); 
