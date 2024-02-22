@@ -162,7 +162,7 @@ Arvore* inserir(Arvore* no, int valor)
 
 //deletar um no
 
-Arvore* deletar(Arvore* no, int valor)
+Arvore* deletar_aux(Arvore* no, int valor)
 {
     //eo número não existe
     if(no == NULL)
@@ -213,16 +213,26 @@ Arvore* deletar(Arvore* no, int valor)
     }
     else if(valor  > no->num)
     {
-        no->dir = deletar(no->dir, valor);
+        no->dir = deletar_aux(no->dir, valor);
     }
     else //o nó está mais à direita na árvore
     {
-        no->esq = deletar(no->esq, valor);
+        no->esq = deletar_aux(no->esq, valor);
     }
 
+    return no;
+}
+
+Arvore* atualiza(Arvore* no)
+{
+    if(no == NULL) return NULL;
+
+    no->esq = atualiza(no->esq);
+    no->dir = atualiza(no->dir);
+
     no->altura = MAX(
-        height(no->dir),
-        height(no->esq)
+        height(no->esq),
+        height(no->dir)
     ) + 1;
 
     no = balanceamento(no);
@@ -266,6 +276,14 @@ void mostrar_posordem(Arvore* no)
     printf("%d ", no->num);
 }
 
+Arvore* deletar(Arvore* no, int valor)
+{
+    no = deletar_aux(no, valor);
+    no = atualiza(no);
+
+    return no;
+}
+
 int main()
 {
     Arvore* raiz = NULL;
@@ -277,7 +295,7 @@ int main()
 
     raiz = deletar(raiz, 23);
 
-    mostrar_ordem(raiz);
+    mostrar_preordem(raiz);
 
     return 0;
 }

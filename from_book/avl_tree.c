@@ -331,11 +331,15 @@ int main()
 {
     No* raiz = NULL;
 
+    raiz = insert(raiz, 16);
     raiz = insert(raiz, 6);
-    raiz = insert(raiz, 8);
+    raiz = insert(raiz, 23);
     raiz = insert(raiz, 7);
 
-    mostrar_ordem(raiz);
+    raiz = remover(raiz, 23);
+    raiz = atualiza(raiz);
+
+    mostrar_pre_ordem(raiz);
 
     return 0;
 }
