@@ -281,7 +281,7 @@ No* deletar(No* no, int valor)
 
 int main()
 {
-    No* raiz = NULL;
+    /* No* raiz = NULL;
     raiz = inserir(raiz, 16);
     raiz = inserir(raiz, 6);
     raiz = inserir(raiz, 23);
@@ -292,7 +292,7 @@ int main()
     raiz = deletar(raiz, 23);
 
     printf("\nDeletamos um\n");
-    mostrar_pre_ordem(raiz);
+    mostrar_pre_ordem(raiz); */
 
     return 0;
 }
