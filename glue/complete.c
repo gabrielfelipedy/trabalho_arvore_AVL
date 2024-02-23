@@ -127,7 +127,7 @@ No* inserir(No* no, int valor)
         novo->esq = NULL;
         novo->dir = NULL;
 
-        no = novo;
+        return novo;
     }
     else if(valor > no->valor)
     {
