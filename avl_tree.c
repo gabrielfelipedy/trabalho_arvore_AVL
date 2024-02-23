@@ -144,17 +144,7 @@ void mostrar_pos_ordem(No* no)
 
 int main()
 {
-    /* No* raiz = NULL;
-
-    raiz = inserir(raiz, 16);
-    raiz = inserir(raiz, 6);
-    raiz = inserir(raiz, 23);
-    raiz = inserir(raiz, 7);
-    mostrar_pre_ordem(raiz);
-    
-    raiz = deletar(raiz, 23);
-    printf("\n********\n");
-    mostrar_pre_ordem(raiz); */
+    No* raiz = NULL;
 
     return 0;
 }

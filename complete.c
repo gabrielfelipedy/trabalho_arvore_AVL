@@ -283,25 +283,15 @@ int main()
 {
     No* raiz = NULL;
     raiz = inserir(raiz, 1);
-    raiz = inserir(raiz, 20);
     raiz = inserir(raiz, 2);
-    raiz = inserir(raiz, 19);
     raiz = inserir(raiz, 3);
-    raiz = inserir(raiz, 18);
     raiz = inserir(raiz, 4);
-    raiz = inserir(raiz, 17);
     raiz = inserir(raiz, 5);
-    raiz = inserir(raiz, 16);
     raiz = inserir(raiz, 6);
-    raiz = inserir(raiz, 15);
     raiz = inserir(raiz, 7);
-    raiz = inserir(raiz, 14);
     raiz = inserir(raiz, 8);
-    raiz = inserir(raiz, 13);
     raiz = inserir(raiz, 9);
-    raiz = inserir(raiz, 12);
     raiz = inserir(raiz, 10);
-    raiz = inserir(raiz, 11);
     
     mostrar_pre_ordem(raiz);
 
