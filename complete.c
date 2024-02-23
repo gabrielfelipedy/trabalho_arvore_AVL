@@ -155,7 +155,7 @@ No* deletar_aux(No* no, int valor)
         return NULL;
     }
 
-    else if(no->valor == valor)
+    if(no->valor == valor)
     {
         if(no->dir == NULL
         && no->esq == NULL)
@@ -216,6 +216,25 @@ No* atualiza(No* no)
     ) + 1;
 
     return balancear(no);
+}
+
+int busca(No* no, int valor, int achou)
+{
+    if(no != NULL && !achou)
+    {
+        if(no->valor == valor) achou = 1;
+
+        else if(valor >= no->valor)
+        {
+            achou = busca(no->dir, valor, achou);
+        }
+        else
+        {
+            achou = busca(no->esq, valor, achou);
+        }
+    }
+
+    return achou;
 }
 
 No* desalocar(No* no)

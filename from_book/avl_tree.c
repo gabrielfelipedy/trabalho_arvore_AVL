@@ -337,7 +337,6 @@ int main()
     raiz = insert(raiz, 7);
 
     raiz = remover(raiz, 23);
-    raiz = atualiza(raiz);
 
     mostrar_pre_ordem(raiz);
 
